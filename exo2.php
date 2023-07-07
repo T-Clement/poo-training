@@ -24,6 +24,73 @@
                 </ul>
             </nav>
         </header>
+        <?php
+        class Teacher {
+            private string $firstName;
+            private string $lastName;
+            private array $subjects;
+            private string $teachingSchoolName;
+
+            function __construct($firstName, $lastName)
+            {
+                $this-> firstName = $firstName;
+                $this-> lastName = $lastName;
+                
+            }
+
+            
+            public function getLastName():string {
+                return $this-> lastName;
+            }
+
+            public function setLastName(string $lastName) {
+                $this-> lastName = $lastName;
+            }
+
+            public function getFirstName():string {
+                return $this-> firstName;
+            }
+
+            public function setFirstName(string $firstName) {
+                $this-> firstName = $firstName;
+            }
+
+            public function getSubjects():array {
+                return $this-> subjects;
+            }
+
+            public function setSubjects(array $subjects) {
+                $this-> subjects = $subjects;
+            }
+
+            public function getSchoolName():string {
+                return $this-> teachingSchoolName;
+            }
+
+            public function setSchoolName($teachingSchoolName) {
+                $this->teachingSchoolName = $teachingSchoolName;
+            }
+
+            // Créer les méthodes permettant d'ajouter une matière, de retirer une matière et d'afficher la liste des matières d'un prof.
+
+            public function addSubject(string $subject) {
+                $this-> subjects[] = $subject;
+            }
+
+            public function removeSubject(string $subjectName) {
+                if(array_search($subjectName, $this->subjects)) {
+                    unset($this->subjects[array_search($subjectName, $this->subjects)]);
+                }
+            }
+
+        }
+        
+        
+        ?>
+
+
+
+
         
         <!-- QUESTION 1 -->
         <section class="exercice">
@@ -36,7 +103,18 @@
                 Créer 2 professeurs différents.
             </p>
             <div class="exercice-sandbox">
-                
+            <?php
+            
+            
+            $teacher1 = new Teacher("Lucas", "Matheux");
+            $teacher1-> setSubjects(["Mathématiques", "Algèbre"]);
+            $teacher1->setSchoolName("Collège Jean Monnet");
+            var_dump($teacher1);
+            $teacher2 = new Teacher("Mireille", "Conjugue");
+            $teacher2-> setSubjects(["Français", "Latin"]);
+            var_dump($teacher2);
+            
+            ?>
             </div>
         </section>
         
@@ -52,7 +130,16 @@
                 Afficher les écoles des 2 professeurs.
             </p>
             <div class="exercice-sandbox">
-                
+            <?php
+            
+            $teacher1-> setSchoolName("Ecole Primaire");
+            var_dump($teacher1);
+            $teacher2-> setSchoolName("Université Caen");
+            var_dump($teacher2);
+            echo "Les 2 professeurs travaillent dans les écoles : " . $teacher1->getSchoolName() . " et " .$teacher2->getSchoolName();
+            
+            
+            ?>
             </div>
         </section>
         
@@ -66,7 +153,13 @@
                 Tester l'ajout, la suppression et l'affichage sur chacun des profs.
             </p>
             <div class="exercice-sandbox">
-                
+            <?php
+            
+            $teacher1-> addSubject('Musique');
+            var_dump($teacher1);
+            $teacher1-> removeSubject('Musique');
+            var_dump($teacher1);
+            ?>
             </div>
         </section>
 

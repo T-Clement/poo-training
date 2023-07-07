@@ -24,6 +24,83 @@
                 </ul>
             </nav>
         </header>
+
+        <?php 
+        $birthdate = new DateTime();
+        var_dump($birthdate instanceof DateTime);
+        $currentTime = new DateTime();
+
+         class Student {
+            private string $lastName;
+            private string $firstName;
+            private DateTime $birthdate;
+            private string $schoolLevel;
+            private string $schoolName;
+
+
+            public function __construct(string $lastName, string $firstName, DateTime $birthdate, string $schoolLevel)
+            {
+                $this-> lastName = $lastName;
+                $this-> firstName = $firstName;
+                $this-> birthdate = $birthdate;
+                $this-> schoolLevel = $schoolLevel;
+            }
+
+            public function getLastName():string {
+                return $this-> lastName;
+            }
+
+            public function setLastName(string $lastName) {
+                $this-> lastName = $lastName;
+            }
+
+            public function getFirstName():string {
+                return $this-> firstName;
+            }
+
+            public function setFirstName(string $firstName) {
+                $this-> firstName = $firstName;
+            }
+
+            public function getBirthdate() {
+                return $this-> birthdate;
+            }
+
+
+            public function getSchoolLevel(): string {
+                return $this-> schoolLevel;
+            }
+
+            public function setSchoolLevel(string $schoolLevel) {
+                $this-> schoolLevel = $schoolLevel;
+            }
+
+            public function getSchoolName():string {
+                return $this-> schoolName;
+            }
+
+            public function setSchoolName(string $schoolName) {
+                $this-> schoolName = $schoolName;
+            }
+
+            public function getCurrentDate():DateTime {
+                return new DateTime();
+            }
+
+            public function getAge ():int {
+                return $this->getBirthdate()-> diff($this->getCurrentDate())->y;
+            }
+
+            public function __toString() {
+                return 'Bonjour, je m\'apelle ' . $this->firstName . ' ' . $this->lastName . ', j\'ai ' . $this->getAge() . ' ans et je vais à l\'école ' . $this->getSchoolName() . ' en  class de ' . $this->getSchoolLevel() . '.';
+            }
+
+
+
+        }
+        
+        
+        ?>
         
         <!-- QUESTION 1 -->
         <section class="exercice">
@@ -36,7 +113,16 @@
                 Créer 2 étudiants différents.
             </p>
             <div class="exercice-sandbox">
-    
+            <?php
+
+            // $student1 = new Student("Vaillant", "Michel", 10, "CM1");
+            // $student2 = new Student("Dupont", "Jean", 16, "3e");
+            $student1 = new Student("Vaillant", "Michel", new DateTime("2012-04-21"), "CM1");
+            $student2 = new Student("Dupont", "Jean", new DateTime("2017-09-30"), "3e");
+            
+            var_dump($student1);
+            var_dump($student2);
+            ?>
             </div>
         </section>
         
@@ -49,7 +135,14 @@
                 Modifier le niveau scolaire des 2 élèves et les afficher.
             </p>
             <div class="exercice-sandbox">
-    
+            <?php 
+            $student1->setSchoolLevel("CP"); 
+            $student2->setSchoolLevel("4e"); 
+
+            var_dump($student1);
+            var_dump($student2);
+            
+            ?>
             </div>
         </section>
         
@@ -62,7 +155,9 @@
                 Mettez à jour l'instanciation des 2 élèves et afficher leur date de naissance.
             </p>
             <div class="exercice-sandbox">
-
+            <?php
+            // voir la question 1
+            ?>
             </div>
         </section>
         
@@ -75,7 +170,15 @@
                 Afficher l'âge des 2 élèves.
             </p>
             <div class="exercice-sandbox">
-
+            <?php
+            
+            
+            var_dump($student1-> getAge());
+            echo $student1->getFirstName() . " a " . $student1->getAge() . ' ans.';
+            echo "<br>";
+            echo $student2->getFirstName() . " a " . $student2->getAge() . ' ans.';
+            
+            ?>
 
             </div>
         </section>
@@ -89,7 +192,14 @@
                 Ajouter la propriété et ajouter la donnée sur les élèves.
             </p>
             <div class="exercice-sandbox">
-
+            <?php
+            
+            $student1-> setSchoolName("Ecole Julien Bodin");
+            $student2-> setSchoolName("College Jean Monnet");
+            var_dump($student1);
+            var_dump($student2);
+            
+            ?>
             </div>
         </section>
         
@@ -103,7 +213,13 @@
                 Afficher la phrase de présentation des 2 élèves.
             </p>
             <div class="exercice-sandbox">
-
+            <?php
+            //__toString
+            echo $student1;
+            echo "<br>";
+            echo $student2;
+            
+            ?>
             </div>
         </section>
 
