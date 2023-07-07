@@ -83,6 +83,19 @@
                 }
             }
 
+
+            public function displaySubjects():string {
+                return implode(", ", $this->subjects);
+            }
+
+
+            // "Bonjour, je m'appelle XXX XXX et j'enseigne à l'école XXX les matières suivantes : XXX, XXX, XXX.".
+
+            public function __toString()
+            {
+                return "Bonjour, je m'appelle " . $this->firstName . " " . $this->lastName . " et j'enseigne à l'école " . $this-> getSchoolName() . " les matières suivantes : " . $this->displaySubjects();
+            }
+
         }
         
         
@@ -159,6 +172,9 @@
             var_dump($teacher1);
             $teacher1-> removeSubject('Musique');
             var_dump($teacher1);
+            echo "La liste des matières du professeur " . $teacher1-> getFirstName() . " " . $teacher1-> getLastName() . " est " . $teacher1-> displaySubjects();
+            echo "<br>";
+            echo "La liste des matières du professeur " . $teacher2-> getFirstName() . " " . $teacher2-> getLastName() . " est " . $teacher2-> displaySubjects();  
             ?>
             </div>
         </section>
@@ -174,7 +190,13 @@
                 Afficher la phrase de présentation des 2 profs.
             </p>
             <div class="exercice-sandbox">
-                
+            <?php
+            
+            echo $teacher1;
+            echo '<br>';
+            echo $teacher2;
+            
+            ?>
             </div>
         </section>
 
