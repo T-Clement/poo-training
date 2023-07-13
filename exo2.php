@@ -1,98 +1,17 @@
 <?php
+spl_autoload_register();
 
-class Teacher
-{
-    private string $firstname;
-    private string $lastname;
-    private array $topics = [];
-    private ?string $school;
-
-    public function __construct(string $firstname, string $lastname, array $topics = [], ?string $school = null)
-    {
-        $this->lastname = $lastname;
-        $this->firstname = $firstname;
-        $this->topics = $topics;
-        $this->school = $school;
-    }
-
-    // ----------------------
-    // Getters and Setters
-    // ----------------------
-
-    public function setLastname(string $lastname): void
-    {
-        $this->lastname = $lastname;
-    }
-
-    public function getLastname(): string
-    {
-        return $this->lastname;
-    }
-
-    public function setFirstname(string $firstname): void
-    {
-        $this->firstname = $firstname;
-    }
-
-    public function getFirstname(): string
-    {
-        return $this->firstname;
-    }
-
-    public function setSchool(string $school): void
-    {
-        $this->school = $school;
-    }
-
-    public function getSchool(): string
-    {
-        return $this->school;
-    }
-
-    public function setTopics(array $topics): void
-    {
-        $this->topics = $topics;
-    }
-
-    public function getTopics(): array
-    {
-        return $this->topics;
-    }
+use App\Objects\Teacher;
+use App\Objects\ElementarySchool;
+use App\Objects\MiddleSchool;
+use App\Objects\HighSchool;
 
 
-    // ----------------------
-    // Methods
-    // ----------------------
-
-    public function addTopic(string $topic): array
-    {
-        array_push($this->topics, $topic);
-        return $this->topics;
-    }
-
-    public function deleteTopic(string $topic): array
-    {
-        $index = array_search($topic, $this->topics);
-        if ($index !== false) {
-            unset($this->topics[$index]);
-        }
-        return $this->topics;
-    }
-
-    public function displayTopics(): string
-    {
-        return implode(' ', $this->topics);
-    }
-
-    public function __toString(): string
-    {
-        return "Bonjour, je m'appelle {$this->firstname} {$this->lastname} et j'enseigne à l'école {$this->school} les matières suivantes : {$this->displayTopics()}.";
-    }
-}
+$school3 = new ElementarySchool('Saint Michel', 'Saint Etienne');
+$school4 = new MiddleSchool('Saint Joseph', 'Caen');
+$school5 = new HighSchool('Saint Louis', 'Lyon');
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,11 +52,13 @@ class Teacher
             <div class="exercice-sandbox">
                 <?php
 
-                $clement = new Teacher('Clément', 'Dupond', ['Maths', 'Français'], 'Jules Verne');
+                $clement = new Teacher('Clément', 'Dupond', $school3, ['Maths', 'Français'], 'Jules Verne');
 
-                $zora = new Teacher('Zora', 'Djebari');
+                $zora = new Teacher('Zora', 'Djebari', $school4);
 
                 var_dump($clement, $zora);
+
+                $zora->addTopic('Flûte traversière');
                 ?>
             </div>
         </section>
@@ -155,10 +76,10 @@ class Teacher
             </p>
             <div class="exercice-sandbox">
                 <?php
-                $clement->setSchool('Jean Guehenno');
-                $zora->setSchool('Ecole de la rue');
-                echo $clement->getSchool() . '<br>';
-                echo $zora->getSchool() . '<br>';
+                $clement->setSchool($school5);
+                $zora->setSchool($school4);
+                echo $clement->getSchool()->getName() . '<br>';
+                echo $zora->getSchool()->getName() . '<br>';
                 ?>
             </div>
         </section>
@@ -199,7 +120,9 @@ class Teacher
             <div class="exercice-sandbox">
                 <?php
                 echo $clement . '<br>';
-                echo $zora;
+                echo $zora . '<br>';
+
+                echo $zora->introduceMyself() . '<br>';
                 ?>
             </div>
         </section>
